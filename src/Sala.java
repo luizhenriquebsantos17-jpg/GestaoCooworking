@@ -1,2 +1,2 @@
-public class Sala {
+public class Sala{
 }

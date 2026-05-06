@@ -1,2 +1,2 @@
-public class Estacao {
+public class Estacao{
 }
