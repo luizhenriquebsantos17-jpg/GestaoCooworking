@@ -1,2 +1,57 @@
 public class Reserva {
+    private Data d;
+    private Horario inicio;
+    private Horario fim;
+    private Espaco esp;
+    private Cliente cli;
+
+
+
+    public Reserva(Data d, Horario inicio, Horario fim, Espaco esp, Cliente cli) {
+        this.d = d;
+        this.inicio = inicio;
+        this.fim = fim;
+        this.esp = esp;
+        this.cli = cli;
+    }
+
+    public Data getD() {
+        return d;
+    }
+
+    public void setD(Data d) {
+        this.d = d;
+    }
+
+    public Horario getFim() {
+        return fim;
+    }
+
+    public void setFim(Horario fim) {
+        this.fim = fim;
+    }
+
+    public Horario getInicio() {
+        return inicio;
+    }
+
+    public void setInicio(Horario inicio) {
+        this.inicio = inicio;
+    }
+
+    public Espaco getEsp() {
+        return esp;
+    }
+
+    public void setEsp(Espaco esp) {
+        this.esp = esp;
+    }
+
+    public Cliente getCli() {
+        return cli;
+    }
+
+    public void setCli(Cliente cli) {
+        this.cli = cli;
+    }
 }

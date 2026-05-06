@@ -8,6 +8,36 @@ public class Espaco {
     protected static double taxaLimpeza;
     protected List<Reserva> reservas;
 
+    public double preco(Horario inicio,Horario fim ){
+        int quantHoras = fim.getHora() - inicio.getHora();
+        if ((fim.getMin() - inicio.getMin()) > 0){
+            quantHoras++;
+        }
+        return ((getValorHora() * quantHoras) + getTaxaLimpeza());
+    }
+    public void adicionarReserva(Reserva r){
+        this.reservas.add(r);
+    }
+    public boolean possuiAdiconalExtra(){
+        return true;
+    }
+    public boolean disponivel(Data d, Horario inicio, Horario fim, boolean extra){
+        if(extra && !possuiAdiconalExtra()){
+            return false;
+        }
+        for (Reserva r : reservas){
+            if (r.getD().equals(d)){
+                if((inicio.compara(r.getInicio()) == -1) && (fim.compara(r.getInicio()) == 1)){
+                    return false;
+                }
+                if((inicio.compara(r.getInicio()) == 1) && (inicio.compara(r.getFim()) == -1)){
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
     public Espaco(String descricao, List<Reserva> reservas) {
         this.descricao = descricao;
         this.reservas = reservas;
