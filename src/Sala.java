@@ -4,7 +4,19 @@ public class Sala extends Espaco{
     private boolean projetor;
     private static double precoProjetor;
 
+    @Override
+    public double preco(Horario inicio, Horario fim){
+        double total = super.preco(inicio, fim) * 4;
+        if (possuiAdicionalExtra()){
+            total += precoProjetor;
+        }
+        return total;
+    }
 
+    @Override
+    public boolean possuiAdicionalExtra(){
+        return projetor;
+    }
 
     public Sala(String descricao, List<Reserva> reservas, boolean projetor) {
         super(descricao, reservas);
@@ -25,5 +37,15 @@ public class Sala extends Espaco{
 
     public static void setPrecoProjetor(double precoProjetor) {
         Sala.precoProjetor = precoProjetor;
+    }
+
+    @Override
+    public String toString() {
+        String text = " sem";
+        if (possuiAdicionalExtra()){
+            text = " com";
+        }
+
+        return super.toString() + " (Sala " + text + " Projetor)";
     }
 }

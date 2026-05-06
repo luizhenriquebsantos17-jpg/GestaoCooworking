@@ -18,11 +18,11 @@ public class Espaco {
     public void adicionarReserva(Reserva r){
         this.reservas.add(r);
     }
-    public boolean possuiAdiconalExtra(){
+    public boolean possuiAdicionalExtra(){
         return true;
     }
     public boolean disponivel(Data d, Horario inicio, Horario fim, boolean extra){
-        if(extra && !possuiAdiconalExtra()){
+        if(extra && !possuiAdicionalExtra()){
             return false;
         }
         for (Reserva r : reservas){
@@ -73,5 +73,10 @@ public class Espaco {
 
     public void setReservas(List<Reserva> reservas) {
         this.reservas = reservas;
+    }
+
+    @Override
+    public String toString() {
+        return descricao;
     }
 }
