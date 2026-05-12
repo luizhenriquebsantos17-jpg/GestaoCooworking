@@ -82,15 +82,15 @@ public class Sistema {
         Horario inicio;
         Horario fim;
         switch (turno){
-            case "matutino":
+            case "m":
                 inicio = new Horario(8,0);
                 fim = new Horario(12,0);
                 break;
-            case "vespertino":
+            case "v":
                 inicio = new Horario(13,0);
                 fim = new Horario(17,0);
                 break;
-            case "noturno":
+            case "n":
                 inicio = new Horario(18,0);
                 fim = new Horario(22,0);
                 break;
@@ -176,7 +176,7 @@ public class Sistema {
     }
 
     public List<Espaco> getSalas() {
-        return salas;
+        return this.salas;
     }
 
     public void setSalas(List<Espaco> salas) {
@@ -184,7 +184,7 @@ public class Sistema {
     }
 
     public List<Espaco> getEstacoes() {
-        return estacoes;
+        return this.estacoes;
     }
 
     public void setEstacoes(List<Espaco> estacoes) {
@@ -192,7 +192,7 @@ public class Sistema {
     }
 
     public List<Cliente> getClientes() {
-        return clientes;
+        return this.clientes;
     }
 
     public void setClientes(List<Cliente> clientes) {

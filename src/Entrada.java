@@ -1,6 +1,5 @@
 import java.util.ArrayList;
 import java.util.Scanner;
-import java.util.List;
 
 public class Entrada {
     Scanner input = new Scanner(System.in);
@@ -43,7 +42,7 @@ public class Entrada {
         return new Cliente(nome, email, cpf, senha);
     }
 
-    public Data LerData(Sistema s) {
+    public Data lerData(Sistema s) {
 
         int d = this.lerInteiro("Dia: ");
         int m = this.lerInteiro("Mês: ");
@@ -52,16 +51,14 @@ public class Entrada {
     }
 
     public Horario lerHorario(Sistema s) {
-        int min = lerInteiro("Minuto: ");
         int hora = lerInteiro("Hora: ");
-        return new Horario(min, hora);
+        int min = lerInteiro("Minuto: ");
+        return new Horario(hora, min);
     }
 
     public String lerTIpo(Sistema s) {
         String tipo = lerLinha("Deseja reservar uma sala ou estação de trabalho? (s/e): ").toLowerCase();
-        while (!tipo.equals("e") && !tipo.equals("s")) {
-            tipo = lerLinha("Resposta inválida, insira (s/e): ");
-        }
+        while (!tipo.equals("e") && !tipo.equals("s")) tipo = lerLinha("Resposta inválida, insira (s/e): ");
         return tipo;
     }
 
@@ -108,15 +105,31 @@ public class Entrada {
     }
 
     public void listarReservas(Sistema s) {
-
+        System.out.println("Reservas cadastradas:");
+        for (Reserva i : s.getReserva()) {
+            System.out.println(i.toString());
+        }
     }
 
     public void listarReservasDatas(Sistema s) {
+        System.out.println("Escolha uma data (dd/mm/aaaa):");
+        Data data = this.lerData(s);
+        for (Reserva i :s.getReserva(data)) {
+            System.out.println(i.toString());
+        }
 
     }
 
-    public void listReservasClientes(Sistema s) {
 
+
+    public void listReservasClientes(Sistema s) {
+        System.out.println("Clientes cadastrados:");
+        this.listarClientes(s);
+        String cpf = this.lerLinha("Digite o CPF do Cliente: ");
+        Cliente cliente = s.getCliente(cpf);
+        for (Reserva i :s.getReserva(cliente)) {
+            System.out.println(i.toString());
+        }
     }
 
 
@@ -218,7 +231,6 @@ public class Entrada {
     }
 
     public void cadastrarSala(Sistema s) {
-
         String descricao = this.lerLinha("Digite o nome da sala: ");
         String p = this.lerLinha("Possui Projetor? (s/n): ").toLowerCase();
         while (!p.equals("s") && !p.equals("n")) {
@@ -249,4 +261,75 @@ public class Entrada {
         Cliente cliente = this.lerCliente(s);
         s.cadastrar(cliente);
     }
+
+    public void reservarData(Sistema s) {
+        String tipo = this.lerLinha("Deseja reservar uma sala ou estação de trabalho? (s/e): ");
+        while (!tipo.equals("e") && !tipo.equals("s"))
+            tipo = this.lerLinha("Valor inválido, Deseja reservar uma sala ou estação de trabalho? (s/e): ");
+        String extra = this.lerLinha("Deseja reservar sala com projetor? (s/n): ");
+        while (!extra.equals("s") && !extra.equals("n"))
+            tipo = this.lerLinha("Valor inválido: Deseja reservar sala com projetor? (s/n): ");
+        System.out.println("Escolha uma data (dd/mm/aaaa):" );
+        Data data = this.lerData(s);
+        System.out.println("********************************");
+        System.out.println("Clientes cadastrados:");
+        this.listarClientes(s);
+        String cpf = this.lerLinha("Digite o CPF do cliente: ");
+        Cliente cliente = s.getCliente(cpf);
+        boolean s1 = s.reservar(tipo, data, cliente, extra.equals("s"));
+
+
+
+    }
+
+    public void reservarTurno(Sistema s) {
+        String tipo = this.lerLinha("Deseja reservar uma sala ou estação de trabalho? (s/e): ");
+        while (!tipo.equals("e") && !tipo.equals("s"))
+            tipo = this.lerLinha("Valor inválido, Deseja reservar uma sala ou estação de trabalho? (s/e): ");
+        String extra = this.lerLinha("Deseja reservar sala com projetor? (s/n): ");
+        while (!extra.equals("s") && !extra.equals("n"))
+            tipo = this.lerLinha("Valor inválido: Deseja reservar sala com projetor? (s/n): ");
+        System.out.println("Escolha uma data (dd/mm/aaaa):" );
+        Data data = this.lerData(s);
+        String turno = this.lerLinha("Escolha um turno: matutino, vespertino ou noturno (m/v/n): ");
+        System.out.println("********************************");
+        System.out.println("Clientes cadastrados:");
+        this.listarClientes(s);
+        String cpf = this.lerLinha("Digite o CPF do cliente: ");
+        Cliente cliente = s.getCliente(cpf);
+        boolean s1 = s.reservar(tipo, data, turno, cliente, extra.equals("s"));
+        if (s1) {
+            System.out.println("Reserva Realizada com sucesso!");
+        } else {
+            System.out.println("Reserva não Realizada com sucesso!");
+        }
+    }
+
+    public void reservarHorario(Sistema s) {
+        String tipo = this.lerLinha("Deseja reservar uma sala ou estação de trabalho? (s/e): ");
+        while (!tipo.equals("e") && !tipo.equals("s"))
+            tipo = this.lerLinha("Valor inválido, Deseja reservar uma sala ou estação de trabalho? (s/e): ");
+        String extra = this.lerLinha("Deseja reservar sala com projetor? (s/n): ");
+        while (!extra.equals("s") && !extra.equals("n"))
+            tipo = this.lerLinha("Valor inválido: Deseja reservar sala com projetor? (s/n): ");
+        System.out.println("Escolha uma data (dd/mm/aaaa):" );
+        Data data = this.lerData(s);
+        System.out.println("Escolha um horário (hh:mm): ");
+        Horario h1 = this.lerHorario(s);
+        System.out.println("Escolha um horário (hh:mm): ");
+        Horario h2 = this.lerHorario(s);
+        System.out.println("********************************");
+        System.out.println("Clientes cadastrados:");
+        this.listarClientes(s);
+        String cpf = this.lerLinha("Digite o CPF do cliente: ");
+        Cliente cliente = s.getCliente(cpf);
+        boolean s1 = s.reservar(tipo, data, h1, h2, cliente, extra.equals("s"));
+        if (s1) {
+            System.out.println("Reserva Realizada com sucesso!");
+        } else {
+            System.out.println("Reserva não Realizada com sucesso!");
+        }
+    }
+
+
 }
