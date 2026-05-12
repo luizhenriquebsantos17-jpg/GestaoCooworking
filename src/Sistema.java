@@ -85,6 +85,7 @@ public class Sistema {
             case "matutino":
                 inicio = new Horario(8,0);
                 fim = new Horario(12,0);
+                break;
             case "vespertino":
                 inicio = new Horario(13,0);
                 fim = new Horario(17,0);
@@ -133,14 +134,14 @@ public class Sistema {
         List<Reserva> auxl = new ArrayList<>();
         for (Espaco est : estacoes){
             for(Reserva res : est.getReservas()){
-                if(res.getD() == d){
+                if(res.getD().equals(d)){
                     auxl.add(res);
                 }
             }
         }
         for (Espaco s : salas){
             for(Reserva res : s.getReservas()){
-                if (res.getD() == d){
+                if (res.getD().equals(d)){
                     auxl.add(res);
                 }
             }

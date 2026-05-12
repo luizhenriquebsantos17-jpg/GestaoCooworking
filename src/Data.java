@@ -4,6 +4,7 @@ public class Data {
     private int ano;
 
     public boolean equals(Data d2){
+
         return ((this.dia == d2.dia) && (this.mes == d2.mes) && (this.ano == d2.ano));
     }
 
