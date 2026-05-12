@@ -5,7 +5,9 @@ public class Reserva {
     private Espaco esp;
     private Cliente cli;
 
-
+    public double preco(){
+        return esp.preco(this.inicio, this.fim);
+    }
 
     public Reserva(Data d, Horario inicio, Horario fim, Espaco esp, Cliente cli) {
         this.d = d;
@@ -53,5 +55,15 @@ public class Reserva {
 
     public void setCli(Cliente cli) {
         this.cli = cli;
+    }
+
+    @Override
+    public String toString() {
+        return "Reserva: \n" +
+                "* Local: " + esp.toString() +"\n" +
+                "* Data: " + d.toString() + "\n" +
+                "* Horário: " + inicio.toString() + "\n" +
+                "* Cliente: " + cli.toString() + "\n" +
+                "* Valor: " + preco();
     }
 }
