@@ -1,4 +1,6 @@
+import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.List;
 
 public class Entrada {
     Scanner input = new Scanner(System.in);
@@ -33,11 +35,11 @@ public class Entrada {
         return s;
     }
 
-    public Cliente LerCliente(Sistema s) {
-        String nome = lerLinha("Nome: ");
-        String email = lerLinha("CPF: ");
-        String cpf = lerLinha("CPF: ");
-        String senha = lerLinha("Senha: ");
+    public Cliente lerCliente(Sistema s) {
+        String nome = lerLinha("Digite o nome do cliente: ");
+        String email = lerLinha("Digite o CPF do cliente: ");
+        String cpf = lerLinha("Digite o email do cliente: ");
+        String senha = lerLinha("Digite a senha do cliente: ");
         return new Cliente(nome, email, cpf, senha);
     }
 
@@ -68,21 +70,39 @@ public class Entrada {
     }
 
     public void listarSalas(Sistema s) {
-        for (Sala i : s.getSalas()) {
-            System.out.println();
+        String msg = "";
+        System.out.println("Salas cadastradas:");
+        int j = 0;
+        for (Espaco i : s.getSalas()) {
+            j = j + 1;
+            if (i.possuiAdicionalExtra()) {
+                msg = " (Sala com Projetor)";
+            } else {
+                msg = " (Sala sem Projetor)";
+            }
+            System.out.println(i.descricao + msg);
         }
     }
 
     public void listarEstacoes(Sistema s) {
-        for (Cliente i : s.getEstacoes()) {
-            System.out.println(i.toString());
+        String msg = "";
+        System.out.println("Estações de Trabalho cadastradas:");
+        int j = 0;
+        for (Espaco i : s.getEstacoes()) {
+            j = j + 1;
+            if (i.possuiAdicionalExtra()) {
+                msg = " (Estacao de Trabalho com Monitor Extra)";
+            } else {
+                msg = " (Estacao de Trabalho sem Monitor Extra)";
+            }
+            System.out.println("Estacao " + String.format("%02d", j) + msg);
         }
 
     }
 
     public void listarClientes(Sistema s) {
         for (Cliente i : s.geTclientes()) {
-            System.out.println(i.getNome() + "(" + i.getEmail() + " - CPF: " + i.getCpf() + ")");
+            System.out.println(i.toString());
         }
 
     }
@@ -149,6 +169,46 @@ public class Entrada {
                 this.cadastrarCliente(s);
                 break;
             case 5:
+                cadastrarSala(s);
+                break;
+            case 6:
+                cadastrarEstacao(s);
+                break;
+        }
+    }
+
+    public void menuReservas(Sistema s) {
+        String msg = "*********************\n" +
+                "Escolha uma opção:\n" +
+                "1) Ver reservas\n" +
+                "2) Ver reservas por data\n" +
+                "3) Ver reservas por cliente\n" +
+                "4) Fazer Reserva (dia inteiro)\n" +
+                "5) Fazer Reserva (turno inteiro)\n" +
+                "6) Fazer reserva (horário específico)\n" +
+                "0) Voltar\n";
+
+        int op = this.lerInteiro(msg);
+
+        while (op < 0 || op > 6) {
+            System.out.println("Opção inválida. Tente novamente: ");
+            op = this.lerInteiro(msg);
+        }
+
+        switch (op) {
+            case 1:
+                this.listarClientes(s);
+                break;
+            case 2:
+                this.listarSalas(s);
+                break;
+            case 3:
+                this.listarEstacoes(s);
+                break;
+            case 4:
+                this.cadastrarCliente(s);
+                break;
+            case 5:
                 // chamar metodo para cadastrar sala
                 break;
             case 6:
@@ -157,7 +217,36 @@ public class Entrada {
         }
     }
 
-    public void cadastrarSala(s) {
+    public void cadastrarSala(Sistema s) {
 
+        String descricao = this.lerLinha("Digite o nome da sala: ");
+        String p = this.lerLinha("Possui Projetor? (s/n): ").toLowerCase();
+        while (!p.equals("s") && !p.equals("n")) {
+            p = this.lerLinha("Valor inválido, possui projetor? (s/n): ").toLowerCase();
+        }
+        ArrayList<Reserva> reservas = new ArrayList<Reserva>();
+        boolean projetor = p.equals("s");
+        Sala sala = new Sala(descricao, reservas, projetor);
+
+        s.cadastrar(sala);
+    }
+
+    public void cadastrarEstacao(Sistema s) {
+        String descricao = this.lerLinha("Digite o nome da estação de trabalho: ");
+        String p = this.lerLinha("Possui monitor extra? (s/n): ").toLowerCase();
+        while (!p.equals("s") && !p.equals("n")) {
+            p = this.lerLinha("Valor inválido, possui monitor extra? (s/n): ").toLowerCase();
+        }
+        ArrayList<Reserva> reservas = new ArrayList<Reserva>();
+        boolean projetor = p.equals("s");
+        Estacao estacao = new Estacao(descricao, reservas, projetor);
+
+        s.cadastrar(estacao);
+
+    }
+
+    public void cadastrarCliente(Sistema s) {
+        Cliente cliente = this.lerCliente(s);
+        s.cadastrar(cliente);
     }
 }
