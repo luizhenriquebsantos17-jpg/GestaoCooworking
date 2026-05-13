@@ -22,15 +22,12 @@ public class Espaco {
         return true;
     }
     public boolean disponivel(Data d, Horario inicio, Horario fim, boolean extra){
-        if(extra && !possuiAdicionalExtra()){
+        if(extra != possuiAdicionalExtra()){
             return false;
         }
         for (Reserva r : reservas){
             if (r.getD().equals(d)){
-                if((inicio.compara(r.getInicio()) == -1) && (fim.compara(r.getInicio()) == 1)){
-                    return false;
-                }
-                if((inicio.compara(r.getInicio()) == 1) && (inicio.compara(r.getFim()) == -1)){
+                if ((inicio.compara(r.getFim()) == -1) && (fim.compara(r.getInicio()) == 1)) {
                     return false;
                 }
             }

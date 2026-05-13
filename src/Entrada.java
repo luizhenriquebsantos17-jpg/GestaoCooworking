@@ -32,27 +32,33 @@ public class Entrada {
 
     public String lerLinha(String msg) {
         System.out.println(msg);
-        String s = this.input.nextLine();
-        while (s.charAt(0) == '#') s = this.input.nextLine();
-        return s;
+        return this.lerLinhaDados();
     }
 
     public int lerInteiro(String msg) {
         System.out.println(msg);
-        int s = this.input.nextInt();
-        return s;
+        return Integer.parseInt(this.lerLinhaDados());
     }
 
     public double lerDouble(String msg) {
         System.out.println(msg);
-        double s = this.input.nextDouble();
-        return s;
+        return Double.parseDouble(this.lerLinhaDados());
+    }
+
+    private String lerLinhaDados() {
+        while (this.input.hasNextLine()) {
+            String s = this.input.nextLine().trim();
+            if (!s.isEmpty() && s.charAt(0) != '#') {
+                return s;
+            }
+        }
+        throw new IllegalStateException("Fim da entrada de dados.");
     }
 
     public Cliente lerCliente(Sistema s) {
         String nome = lerLinha("Digite o nome do cliente: ");
-        String email = lerLinha("Digite o CPF do cliente: ");
-        String cpf = lerLinha("Digite o email do cliente: ");
+        String cpf = lerLinha("Digite o CPF do cliente: ");
+        String email = lerLinha("Digite o email do cliente: ");
         String senha = lerLinha("Digite a senha do cliente: ");
         return new Cliente(nome, email, cpf, senha);
     }
@@ -78,7 +84,11 @@ public class Entrada {
     }
 
     public boolean lerExtra(Sistema s) {
-
+        String extra = this.lerLinha("Deseja adicional extra? (s/n): ").toLowerCase();
+        while (!extra.equals("s") && !extra.equals("n")) {
+            extra = this.lerLinha("Valor invalido, deseja adicional extra? (s/n): ").toLowerCase();
+        }
+        return extra.equals("s");
     }
 
     public void listarSalas(Sistema s) {
@@ -113,7 +123,7 @@ public class Entrada {
     }
 
     public void listarClientes(Sistema s) {
-        for (Cliente i : s.geTclientes()) {
+        for (Cliente i : s.getClientes()) {
             System.out.println(i.toString());
         }
 

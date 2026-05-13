@@ -95,8 +95,7 @@ public class Sistema {
                 fim = new Horario(22,0);
                 break;
             default:
-                inicio = null;
-                fim = null;
+                return false;
 
         }
         if (tipo.equals("e")) {

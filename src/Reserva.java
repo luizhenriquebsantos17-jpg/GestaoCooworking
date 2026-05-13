@@ -62,7 +62,7 @@ public class Reserva {
         return "Reserva: \n" +
                 "* Local: " + esp.toString() +"\n" +
                 "* Data: " + d.toString() + "\n" +
-                "* Horário: " + inicio.toString() + "\n" +
+                "* Horário: " + inicio.toString() + " - " + fim.toString() + "\n" +
                 "* Cliente: " + cli.toString() + "\n" +
                 "* Valor: " + preco();
     }
