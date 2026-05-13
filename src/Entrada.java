@@ -15,6 +15,18 @@ public class Entrada {
         }
     }
 
+
+    public Sistema criarSistema() {
+        System.out.println("Iniciando o sistema...");
+        double valorHora = this.lerDouble("Digite o valor por hora para usar um espaço: R$ ");
+        double taxaLimpeza = this.lerDouble("Digite a taxa de limpeza: R$ ");
+        double precoProjetor = this.lerDouble("Digite o valor extra para usar o projetor: R$ ");
+        double precoMonitor = this.lerDouble("Digite o valor para usar o monitor extra: R$ ");
+
+        return new Sistema(valorHora, taxaLimpeza, precoProjetor, precoMonitor);
+    }
+
+
     public String lerLinha(String msg) {
         System.out.println(msg);
         String s = this.input.nextLine();
@@ -111,7 +123,7 @@ public class Entrada {
         }
     }
 
-    public void listarReservasDatas(Sistema s) {
+    public void listarReservasData(Sistema s) {
         System.out.println("Escolha uma data (dd/mm/aaaa):");
         Data data = this.lerData(s);
         for (Reserva i :s.getReserva(data)) {
@@ -122,7 +134,7 @@ public class Entrada {
 
 
 
-    public void listReservasClientes(Sistema s) {
+    public void listarReservasClientes(Sistema s) {
         System.out.println("Clientes cadastrados:");
         this.listarClientes(s);
         String cpf = this.lerLinha("Digite o CPF do Cliente: ");
@@ -182,10 +194,10 @@ public class Entrada {
                 this.cadastrarCliente(s);
                 break;
             case 5:
-                cadastrarSala(s);
+                this.cadastrarSala(s);
                 break;
             case 6:
-                cadastrarEstacao(s);
+                this.cadastrarEstacao(s);
                 break;
         }
     }
@@ -210,22 +222,22 @@ public class Entrada {
 
         switch (op) {
             case 1:
-                this.listarClientes(s);
+                this.listarReservas(s);
                 break;
             case 2:
-                this.listarSalas(s);
+                this.listarReservasData(s);
                 break;
             case 3:
-                this.listarEstacoes(s);
+                this.listarReservasClientes(s);
                 break;
             case 4:
-                this.cadastrarCliente(s);
+                this.reservarData(s);
                 break;
             case 5:
-                // chamar metodo para cadastrar sala
+                this.reservarTurno(s);
                 break;
             case 6:
-                // chamar metodo para cadastrar estacao
+                this.reservarHorario(s);
                 break;
         }
     }
@@ -239,6 +251,7 @@ public class Entrada {
         ArrayList<Reserva> reservas = new ArrayList<Reserva>();
         boolean projetor = p.equals("s");
         Sala sala = new Sala(descricao, reservas, projetor);
+
 
         s.cadastrar(sala);
     }

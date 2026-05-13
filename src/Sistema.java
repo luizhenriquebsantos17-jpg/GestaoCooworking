@@ -175,6 +175,17 @@ public class Sistema {
         this.clientes = clientes;
     }
 
+    public Sistema(double valorHora, double taxaLimpeza, double precoProjetor, double precoMonitor) {
+        Espaco.setValorHora(valorHora);
+        Espaco.setTaxaLimpeza(taxaLimpeza);
+        Estacao.setPrecoMonitor(precoMonitor);
+        Sala.setPrecoProjetor(precoProjetor);
+
+        this.salas = new ArrayList<Espaco>();
+        this.estacoes = new ArrayList<Espaco>();
+        this.clientes = new ArrayList<Cliente>();
+    }
+
     public List<Espaco> getSalas() {
         return this.salas;
     }
