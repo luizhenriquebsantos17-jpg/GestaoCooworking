@@ -77,9 +77,7 @@ public class Entrada {
         return tipo;
     }
 
-    public boolean lerExtra(Sistema s) {
 
-    }
 
     public void listarSalas(Sistema s) {
         String msg = "";
@@ -113,7 +111,7 @@ public class Entrada {
     }
 
     public void listarClientes(Sistema s) {
-        for (Cliente i : s.geTclientes()) {
+        for (Cliente i : s.getClientes()) {
             System.out.println(i.toString());
         }
 
