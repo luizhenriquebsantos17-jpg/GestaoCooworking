@@ -83,14 +83,17 @@ public class Sistema {
         Horario fim;
         switch (turno){
             case "m":
+            case "matutino":
                 inicio = new Horario(8,0);
                 fim = new Horario(12,0);
                 break;
             case "v":
+            case "vespertino":
                 inicio = new Horario(13,0);
                 fim = new Horario(17,0);
                 break;
             case "n":
+            case "noturno":
                 inicio = new Horario(18,0);
                 fim = new Horario(22,0);
                 break;
